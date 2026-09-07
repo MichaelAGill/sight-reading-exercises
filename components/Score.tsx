@@ -1,0 +1,18 @@
+import { useEffect,useRef,useState } from 'react';
+import type { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
+import { type Exercise,PPQ } from '@/lib/music/model';
+import { toMusicXML } from '@/lib/music/musicxml';
+import { validateRenderedPage } from '@/lib/music/layout';
+export default function Score({exercise,tick,playing,onReady}:{exercise:Exercise;tick:number;playing:boolean;onReady:(error?:string)=>void}){
+ const ref=useRef<HTMLDivElement>(null),osmd=useRef<OpenSheetMusicDisplay|null>(null);const [error,setError]=useState('');const ready=useRef(onReady);ready.current=onReady;
+ useEffect(()=>{let cancelled=false;const el=ref.current!;let observer:ResizeObserver;let timeout:ReturnType<typeof setTimeout>;
+  setError('');ready.current('loading');
+  (async()=>{try{const {OpenSheetMusicDisplay}=await import('opensheetmusicdisplay');if(cancelled)return;el.innerHTML='';const score=new OpenSheetMusicDisplay(el,{backend:'svg',autoResize:false,autoBeam:true,alignRests:2,drawTitle:false,drawComposer:false,drawPartNames:false,drawMeasureNumbers:true,drawMetronomeMarks:false,newSystemFromXML:true,followCursor:false,cursorsOptions:[{type:0,color:'#c4963c',alpha:0.28,follow:false}]});osmd.current=score;score.EngravingRules.MinMeasureToDrawIndex=0;score.EngravingRules.RenderXMeasuresPerLineAkaSystem=0;score.EngravingRules.StaffDistance=7;score.EngravingRules.BetweenStaffDistance=7;score.EngravingRules.MinimumDistanceBetweenSystems=8;score.EngravingRules.PageLeftMargin=3;score.EngravingRules.PageRightMargin=3;score.EngravingRules.PageTopMargin=3;score.EngravingRules.PageBottomMargin=3;
+   await score.load(toMusicXML(exercise));if(cancelled)return;
+   const render=()=>{if(cancelled)return;score.Zoom=0.78;score.EngravingRules.StretchLastSystemLine=true;score.render();score.cursor.hide();const systems=score.GraphicSheet.MusicPages.flatMap(p=>p.MusicSystems).length;const svg=el.querySelector('svg');const height=svg?.getBoundingClientRect().height??0;const report=validateRenderedPage(exercise,systems,height,el.clientWidth);el.dataset.systems=String(systems);el.dataset.pageValidation=String(report.passed);el.dataset.pageDetail=report.detail;ready.current(report.passed?undefined:'The score needs more room. Please generate another exercise.');};render();let width=el.clientWidth;observer=new ResizeObserver(()=>{if(el.clientWidth===width)return;width=el.clientWidth;clearTimeout(timeout);timeout=setTimeout(render,150);});observer.observe(el);
+  }catch(err){if(!cancelled){const msg='The score could not be engraved. Please generate another exercise.';setError(msg);ready.current(msg);console.error(err);}}})();
+  return()=>{cancelled=true;observer?.disconnect();clearTimeout(timeout);osmd.current=null;};
+ },[exercise]);
+ useEffect(()=>{const score=osmd.current;if(!score?.cursor||!score.GraphicSheet)return;const cursor=score.cursor;if(!playing){cursor.hide();cursor.reset();return;}const target=tick/(PPQ*4);if(cursor.Iterator.EndReached||cursor.Iterator.CurrentSourceTimestamp.RealValue>target)cursor.reset();let guard=0;while(!cursor.Iterator.EndReached&&cursor.Iterator.CurrentSourceTimestamp.RealValue<target-0.0001&&guard++<5000){const before=cursor.Iterator.CurrentSourceTimestamp.RealValue;cursor.next();if(cursor.Iterator.CurrentSourceTimestamp.RealValue>target){cursor.previous();break;}if(before===cursor.Iterator.CurrentSourceTimestamp.RealValue&&cursor.Iterator.EndReached)break;}cursor.show();cursor.update();},[tick,playing]);
+ return <div className="score-scroll" aria-label={`Grand staff: ${exercise.title}, ${exercise.key}, ${exercise.metre}`}><div className="score-engraving" ref={ref} data-testid="engraving"/>{error&&<p role="alert">{error}</p>}</div>;
+}

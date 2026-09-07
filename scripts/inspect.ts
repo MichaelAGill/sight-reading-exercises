@@ -1,0 +1,3 @@
+import {compose,generate} from '../lib/music/compose';
+import type {Grade} from '../lib/music/model';
+for(let g=1;g<=8;g++){const fails:Record<string,number>={};const examples=[];let passed=0;for(let s=1;s<=100;s++){const e=compose(g as Grade,s);const bad=e.validation.filter(v=>!v.passed);if(!bad.length)passed++;for(const v of bad)fails[v.name]=(fails[v.name]??0)+1;if(s<=2)examples.push({key:e.key,metre:e.metre,difficulty:e.difficulty.total,bad});}let generated;try{generated=generate(g as Grade,12345).seed;}catch(err){generated=String(err);}console.log(JSON.stringify({grade:g,passed,fails,examples,generated}));}

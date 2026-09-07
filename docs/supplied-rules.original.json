@@ -1,0 +1,1456 @@
+{
+  "schemaVersion": "1.0.0",
+  "title": "ABRSM-informed piano sight-reading generation rules",
+  "purpose": "Generate short, previously unseen piano pieces for practice at ABRSM Grades 1–8.",
+  "scope": {
+    "grades": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "instrument": "piano",
+    "notation": "grand staff",
+    "output": "one short unaccompanied piece with an optional playback rendering",
+    "status": "ABRSM-informed design specification, not an official ABRSM specification"
+  },
+  "referenceBasis": {
+    "syllabus": "ABRSM Piano Practical Grades 2025 & 2026",
+    "validity": "2025-01-01 through 2026-12-31",
+    "interpretation": "ABRSM sight-reading parameters are treated as the hard progression backbone. The repertoire lists are treated as a style, texture, technique and difficulty reference. The generator ceilings below are implementation choices intended to stay safely within the reference envelope; they are not claims about every piece in the syllabus.",
+    "sources": [
+      {
+        "id": "piano-syllabus-2025-2026",
+        "title": "ABRSM Piano Practical Grades 2025 & 2026",
+        "url": "https://www.abrsm.org/sites/default/files/2024-06/Piano%202025%20%26%202026%20Prac%20syllabus%2020240524_access.pdf",
+        "pages": [
+          11,
+          12,
+          15,
+          16,
+          21,
+          24,
+          27,
+          30,
+          33,
+          36,
+          39,
+          42
+        ],
+        "usedFor": [
+          "repertoire lists",
+          "List A/B/C character",
+          "sight-reading test format",
+          "cumulative sight-reading parameters",
+          "grade-specific technical context"
+        ]
+      },
+      {
+        "id": "sight-reading-books",
+        "title": "ABRSM Piano Specimen Sight-Reading Tests",
+        "url": "https://shop.abrsm.org/collections/sight-reading",
+        "usedFor": [
+          "official specimen-material availability",
+          "cross-checking that each grade has dedicated sight-reading examples"
+        ]
+      },
+      {
+        "id": "sight-reading-trainer",
+        "title": "ABRSM Piano Sight-Reading Trainer",
+        "url": "https://www.abrsm.org/en-gb/for-learners/apps-and-practice-tools/sight-reading-trainer",
+        "usedFor": [
+          "pre-play scan-and-identify approach",
+          "reinforcing key, rhythm, pattern and characteristic recognition"
+        ]
+      }
+    ]
+  },
+  "globalRules": {
+    "examLikeFormat": {
+      "previouslyUnseen": true,
+      "unaccompanied": true,
+      "previewSeconds": 30,
+      "previewMayIncludeTryingNotes": true,
+      "pieceCount": 1,
+      "rationale": "ABRSM describes sight-reading as a short, unaccompanied piece not seen before, with half a minute to look through and optionally try some or all of it."
+    },
+    "cumulativeParameters": true,
+    "cumulativeInterpretation": "Once a parameter is introduced at a grade, it remains available at later grades, but difficulty should increase gradually rather than automatically using every later feature at maximum density.",
+    "generatorSafety": {
+      "avoidUnmarkedOctaveSpansBelowGrade": 3,
+      "avoidLargeHandStretches": true,
+      "avoidPedalDependenceBelowGrade": 6,
+      "avoidDensePolyphonyBelowGrade": 6,
+      "avoidMoreThanOneNewMajorChallengePerPhrase": true,
+      "preferPredictablePhraseLengths": true,
+      "preferIdiomaticFingering": true,
+      "rationale": "The learner needs to read, coordinate and keep a pulse in real time. Prepared-piece difficulty must not be copied wholesale into an unseen exercise."
+    },
+    "difficultyBudget": {
+      "points": {
+        "newKeyOrAccidentalLoad": 1,
+        "rhythmicIrregularity": 1,
+        "handMovementOrLeap": 1,
+        "simultaneousNotesOrVoiceCount": 1,
+        "clefOrRegisterChange": 1,
+        "articulationOrDynamicChange": 1,
+        "pedalOrOrnamentInstruction": 1,
+        "tempoChange": 2
+      },
+      "rule": "The generated piece must not exceed the grade maxPoints, and should normally fall between targetMinPoints and targetMaxPoints.",
+      "purpose": "This is an internal generation budget, not an ABRSM mark scheme."
+    }
+  },
+  "grades": {
+    "1": {
+      "grade": 1,
+      "difficultyLabel": "early elementary",
+      "rationale": "The ABRSM Grade 1 sight-reading step extends Initial Grade five-finger work into any five-finger position and adds G/F major and A minor material, occasional minor-key accidentals, slurs, accents and basic dynamic shaping. The repertoire is dominated by short dances, simple Classical/Baroque miniatures, lyrical songs, folk/pop arrangements and accessible character pieces.",
+      "repertoireReference": {
+        "style": [
+          "simple Baroque or Classical dance",
+          "folk song",
+          "lyrical miniature",
+          "character piece",
+          "accessible film or pop arrangement",
+          "very light jazz or contemporary idiom"
+        ],
+        "texture": [
+          "single melodic line",
+          "simple melody with sparse accompaniment",
+          "two hands in complementary or question-and-answer roles",
+          "occasional broken-note accompaniment"
+        ],
+        "technique": [
+          "five-finger patterns",
+          "legato and staccato contrast",
+          "basic accents",
+          "simple phrase shaping",
+          "small position changes",
+          "straightforward repeated notes"
+        ],
+        "range": "Keep the hands mainly within nearby five-finger positions. Use a modest overall register and avoid octave-reliant writing.",
+        "difficultySignal": "Musical fluency and recognition of basic patterns matter more than speed or virtuosity."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 6,
+          "max": 6,
+          "target": 6,
+          "rationale": "ABRSM table: 6 bars at Grade 1."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4"
+        ],
+        "preferredMetres": [
+          "3/4",
+          "4/4"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor"
+        ],
+        "preferredKeys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor"
+        ],
+        "accidentals": {
+          "maxPerBar": 1,
+          "allowed": "occasional accidentals only and, for the new material, chiefly within A minor",
+          "avoid": [
+            "chromatic passages",
+            "frequent secondary accidentals"
+          ]
+        },
+        "hands": {
+          "mode": "each hand separately",
+          "simultaneousHandsAllowed": false,
+          "position": "any five-finger position",
+          "maximumPositionSpanSemitones": 7
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 7,
+          "maximumLeapSemitones": 7,
+          "maximumOverallRegisterSpanSemitones": 24,
+          "octaveDisplacementAllowed": false
+        },
+        "rhythm": {
+          "subdivision": "crotchets and quavers with simple dotted-crotchet/quaver patterns",
+          "maxSubdivision": "quaver",
+          "ties": false,
+          "syncopation": false,
+          "triplets": false,
+          "maxConsecutiveNonStepRhythms": 2
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 1,
+          "maxIndependentVoices": 1,
+          "chords": false,
+          "melodyAccompanimentRatio": "mostly 1:1 or single-line material"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass"
+          ],
+          "clefChanges": false,
+          "anacrusis": false,
+          "8va": false,
+          "rests": "frequent and simple"
+        },
+        "expression": {
+          "dynamics": [
+            "p",
+            "mp",
+            "mf"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": false,
+          "pedal": false,
+          "ornaments": false
+        },
+        "required": [
+          "recognisable two- or four-bar phrase shape",
+          "one clear tonal centre",
+          "a playable pulse at a moderate tempo"
+        ],
+        "forbidden": [
+          "simultaneous two-hand activity",
+          "chords",
+          "semiquaver runs",
+          "pedal-dependent resonance",
+          "large register jumps"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 5,
+        "targetMaxPoints": 9,
+        "maxPoints": 11
+      }
+    },
+    "2": {
+      "grade": 2,
+      "difficultyLabel": "elementary",
+      "rationale": "The ABRSM Grade 2 sight-reading step adds D major and E/G minor, coordinated playing together, tied notes, simple whole-note/crotchet/quaver combinations and very soft dynamics. The repertoire broadens the same accessible language into sonatinas, gavottes, waltzes, lyrical miniatures, film/pop, world music, blues and ragtime-like pieces.",
+      "repertoireReference": {
+        "style": [
+          "sonatina or Classical dance",
+          "waltz",
+          "lyrical Romantic miniature",
+          "folk or world-music character",
+          "film/pop arrangement",
+          "beginner jazz, blues or rag"
+        ],
+        "texture": [
+          "melody over simple bass",
+          "blocked or broken accompaniment",
+          "parallel or contrary motion",
+          "simple two-hand homophony"
+        ],
+        "technique": [
+          "hands together",
+          "simple ties",
+          "basic balance between melody and accompaniment",
+          "position changes without large stretches",
+          "steady dance rhythms"
+        ],
+        "range": "Allow movement outside a single five-finger position, but keep hands close and register changes obvious rather than continuous.",
+        "difficultySignal": "Coordination and continuity are the main step up; chordal density should remain low."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 6,
+          "max": 6,
+          "target": 6,
+          "rationale": "ABRSM table remains at 6 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4"
+        ],
+        "preferredMetres": [
+          "2/4",
+          "3/4",
+          "4/4"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor"
+        ],
+        "preferredKeys": [
+          "D major",
+          "E minor",
+          "G minor",
+          "G major",
+          "F major"
+        ],
+        "accidentals": {
+          "maxPerBar": 1,
+          "allowed": "occasional chromatic-looking notes only when they are idiomatic and easy to predict",
+          "avoid": [
+            "modulation",
+            "chromatic sequences"
+          ]
+        },
+        "hands": {
+          "mode": "hands together",
+          "simultaneousHandsAllowed": true,
+          "position": "close positions with occasional small shifts",
+          "maximumPositionSpanSemitones": 9
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 9,
+          "maximumLeapSemitones": 9,
+          "maximumOverallRegisterSpanSemitones": 31,
+          "octaveDisplacementAllowed": false
+        },
+        "rhythm": {
+          "subdivision": "crotchets, quavers, minims and simple dotted patterns",
+          "maxSubdivision": "quaver",
+          "ties": true,
+          "syncopation": false,
+          "triplets": false,
+          "maxConsecutiveNonStepRhythms": 3
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 1,
+          "maxIndependentVoices": 1,
+          "chords": false,
+          "melodyAccompanimentRatio": "mostly 1:1; occasional held bass under moving melody"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass"
+          ],
+          "clefChanges": false,
+          "anacrusis": false,
+          "8va": false,
+          "rests": "simple rests and tied notes"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": false,
+          "pedal": false,
+          "ornaments": false
+        },
+        "required": [
+          "both hands must coordinate in at least half the piece",
+          "at least one tied-note gesture",
+          "clear phrase endings"
+        ],
+        "forbidden": [
+          "chords requiring simultaneous fingers in one hand",
+          "semiquaver patterns",
+          "syncopated accompaniment",
+          "clef changes",
+          "pedal instructions"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 8,
+        "targetMaxPoints": 13,
+        "maxPoints": 16
+      }
+    },
+    "3": {
+      "grade": 3,
+      "difficultyLabel": "lower-intermediate",
+      "rationale": "Grade 3 introduces longer pieces of up to 8 bars, 3/8, A/B-flat/E-flat major and B minor, movement outside five-finger positions, two-note chords and simple semiquaver patterns. The repertoire includes sonatina and dance writing, Romantic album pieces, folk/world material, film music, contemporary miniatures and light jazz.",
+      "repertoireReference": {
+        "style": [
+          "Classical sonatina movement",
+          "minuet or dance",
+          "Romantic album miniature",
+          "folk/world song",
+          "film or popular arrangement",
+          "modern character piece",
+          "light jazz"
+        ],
+        "texture": [
+          "melody with broken-bass accompaniment",
+          "two-note chord support",
+          "simple imitation",
+          "alternating-register accompaniment",
+          "clear melody-and-accompaniment hierarchy"
+        ],
+        "technique": [
+          "position changes",
+          "two-note chords",
+          "simple semiquaver figures",
+          "repeated accompaniment patterns",
+          "basic voicing",
+          "short scale-like passages"
+        ],
+        "range": "Permit movement outside five-finger positions and a wider register, but keep leaps recoverable and avoid sustained octave texture.",
+        "difficultySignal": "The player must look ahead through modest hand movement and chord shapes while retaining a steady pulse."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 6,
+          "max": 8,
+          "target": 8,
+          "rationale": "ABRSM table: up to 8 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8"
+        ],
+        "preferredMetres": [
+          "3/4",
+          "4/4",
+          "3/8"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor"
+        ],
+        "preferredKeys": [
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor",
+          "G major",
+          "D major"
+        ],
+        "accidentals": {
+          "maxPerBar": 2,
+          "allowed": "occasional accidentals and brief chromatic approach notes",
+          "avoid": [
+            "modulating sequences",
+            "more than one tonal centre"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with occasional independent movement",
+          "simultaneousHandsAllowed": true,
+          "position": "outside five-finger position",
+          "maximumPositionSpanSemitones": 10
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 12,
+          "maximumLeapSemitones": 12,
+          "maximumOverallRegisterSpanSemitones": 36,
+          "octaveDisplacementAllowed": false
+        },
+        "rhythm": {
+          "subdivision": "quavers plus short simple semiquaver patterns",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "very simple only",
+          "triplets": false,
+          "maxConsecutiveNonStepRhythms": 4
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 2,
+          "maxIndependentVoices": 2,
+          "chords": "two-note chords in either hand",
+          "melodyAccompanimentRatio": "melody over simple chord or broken-note support"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass"
+          ],
+          "clefChanges": false,
+          "anacrusis": false,
+          "8va": false,
+          "rests": "simple rests, ties and phrase gaps"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto used sparingly"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": false,
+          "pedal": false,
+          "ornaments": false
+        },
+        "required": [
+          "at least one controlled position change",
+          "at least one two-note chord event if the target is at the top of the grade",
+          "a phrase that is longer than four bars or has a clear continuation"
+        ],
+        "forbidden": [
+          "dense chordal accompaniment",
+          "rapid semiquaver passagework across both hands",
+          "clef changes",
+          "ornament-dependent melody",
+          "pedal-dependent texture"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 12,
+        "targetMaxPoints": 19,
+        "maxPoints": 23
+      }
+    },
+    "4": {
+      "grade": 4,
+      "difficultyLabel": "intermediate",
+      "rationale": "Grade 4 adds 6/8, anacrusis, chromatic notes, pause signs and tenuto, while keeping the sight-reading length around 8 bars. The repertoire is recognisably more mature: Classical sonata/sonatina movements, Romantic waltzes and lyric pieces, contemporary and impressionistic colours, folk dances, jazz and familiar arrangements.",
+      "repertoireReference": {
+        "style": [
+          "Classical sonata or sonatina movement",
+          "Romantic waltz or lyric miniature",
+          "characteristic dance",
+          "impressionistic or contemporary miniature",
+          "folk and world styles",
+          "jazz, blues or popular arrangement"
+        ],
+        "texture": [
+          "Alberti-like or broken-chord patterns",
+          "melody with more active accompaniment",
+          "short imitative entries",
+          "bass-plus-chordal support",
+          "occasional two-note inner movement"
+        ],
+        "technique": [
+          "more reliable hand repositioning",
+          "simple chromaticism",
+          "compound metre feel",
+          "tenuto and accents",
+          "controlled articulation changes",
+          "short scale and arpeggio fragments"
+        ],
+        "range": "Use a clearly expanded grand-staff register, with occasional wider leaps but no continuous octave texture or extreme hand spread.",
+        "difficultySignal": "The exercise should test reading of musical syntax and accompaniment patterns, not merely note-by-note decoding."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 8,
+          "max": 9,
+          "target": 8,
+          "rationale": "ABRSM table: approximately 8 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8",
+          "6/8"
+        ],
+        "preferredMetres": [
+          "3/4",
+          "4/4",
+          "6/8"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor"
+        ],
+        "preferredKeys": [
+          "C major",
+          "A minor",
+          "E-flat major",
+          "B minor",
+          "A major"
+        ],
+        "accidentals": {
+          "maxPerBar": 3,
+          "allowed": "chromatic passing or neighbour notes and occasional altered notes",
+          "avoid": [
+            "extended chromatic harmony",
+            "rapid key changes"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with independent accompaniment patterns",
+          "simultaneousHandsAllowed": true,
+          "position": "mobile positions",
+          "maximumPositionSpanSemitones": 10
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 12,
+          "maximumLeapSemitones": 14,
+          "maximumOverallRegisterSpanSemitones": 48,
+          "octaveDisplacementAllowed": false
+        },
+        "rhythm": {
+          "subdivision": "semiquavers in short groups, dotted rhythms and compound-metre groupings",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "simple and occasional",
+          "triplets": false,
+          "maxConsecutiveNonStepRhythms": 5
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 2,
+          "maxIndependentVoices": 2,
+          "chords": "two-note chords; occasional three-note sonority spread across both hands",
+          "melodyAccompanimentRatio": "melody over repeating accompaniment is encouraged"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass"
+          ],
+          "clefChanges": false,
+          "anacrusis": true,
+          "8va": false,
+          "rests": "phrase rests, ties and pauses may occur"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": false,
+          "pedal": false,
+          "ornaments": "avoid or use only as an optional decoration"
+        },
+        "required": [
+          "one compound-metre or anacrustic challenge",
+          "at least one chromatic note in upper-grade variants",
+          "a clear accompaniment pattern that repeats or transforms"
+        ],
+        "forbidden": [
+          "clef changes",
+          "pedal-dependent resonance",
+          "three independent voices",
+          "dense syncopation",
+          "continuous octave writing"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 16,
+        "targetMaxPoints": 25,
+        "maxPoints": 30
+      }
+    },
+    "5": {
+      "grade": 5,
+      "difficultyLabel": "upper-intermediate",
+      "rationale": "Grade 5 expands the sight-reading length to approximately 8–12 bars and adds E/A major, F-sharp/C minor, four-part chordal writing with no more than two notes in either hand, simple syncopation and a slowing at the end. The repertoire combines études, sonatina and variation writing, Romantic lyricism, blues/jazz, film/pop and modern character pieces.",
+      "repertoireReference": {
+        "style": [
+          "etude or toccata-like study",
+          "Classical sonatina or variation",
+          "Romantic song without words or waltz",
+          "blues, jazz or rag",
+          "modern tonal miniature",
+          "film/pop arrangement"
+        ],
+        "texture": [
+          "melody over broken-chord or Alberti-like bass",
+          "four-part harmonic texture with limited hand density",
+          "alternating accompaniment patterns",
+          "simple counterpoint",
+          "wider register contrasts"
+        ],
+        "technique": [
+          "more independent hands",
+          "syncopation",
+          "short rapid figures",
+          "ornamental or decorative turns only when simple",
+          "dynamic layering",
+          "greater control of inner notes"
+        ],
+        "range": "Use a broad but idiomatic grand-staff range. Leaps may be larger, but each hand should have a predictable landing and avoid sustained uncomfortable stretches.",
+        "difficultySignal": "A successful reading requires anticipation of harmony, rhythm and hand shape across the bar rather than isolated note recognition."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 8,
+          "max": 12,
+          "target": 10,
+          "rationale": "ABRSM table: approximately 8–12 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8",
+          "6/8",
+          "9/8"
+        ],
+        "preferredMetres": [
+          "4/4",
+          "6/8",
+          "3/4"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor",
+          "E major",
+          "A major",
+          "F-sharp major",
+          "C minor"
+        ],
+        "preferredKeys": [
+          "E major",
+          "A major",
+          "F-sharp major",
+          "C minor",
+          "E minor",
+          "B minor"
+        ],
+        "accidentals": {
+          "maxPerBar": 4,
+          "allowed": "regular chromatic decoration or altered scale degrees, but the tonal centre must remain clear",
+          "avoid": [
+            "unprepared modulation",
+            "dense chromatic harmony"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with independent rhythmic roles",
+          "simultaneousHandsAllowed": true,
+          "position": "mobile and register-separated",
+          "maximumPositionSpanSemitones": 12
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 14,
+          "maximumLeapSemitones": 16,
+          "maximumOverallRegisterSpanSemitones": 60,
+          "octaveDisplacementAllowed": false
+        },
+        "rhythm": {
+          "subdivision": "semiquavers, dotted rhythms, simple syncopation and compound metre",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "simple and limited to one hand at a time",
+          "triplets": false,
+          "maxConsecutiveNonStepRhythms": 6
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 2,
+          "maxIndependentVoices": 3,
+          "chords": "four-part harmonic result with no more than two simultaneous notes in either hand",
+          "melodyAccompanimentRatio": "clear top-line priority required"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass"
+          ],
+          "clefChanges": false,
+          "anacrusis": true,
+          "8va": false,
+          "rests": "phrase rests, ties and held notes may create independence demands"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f",
+            "ff"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": [
+            "slowing at the end"
+          ],
+          "pedal": false,
+          "ornaments": "simple optional ornaments only"
+        },
+        "required": [
+          "at least one passage where the hands have different rhythmic roles",
+          "one simple syncopated or tied gesture",
+          "a convincing final cadence and optional slowing"
+        ],
+        "forbidden": [
+          "more than two simultaneous notes in either hand",
+          "clef changes",
+          "pedal-dependent texture",
+          "dense triplet passagework",
+          "continuous octave texture"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 22,
+        "targetMaxPoints": 34,
+        "maxPoints": 40
+      }
+    },
+    "6": {
+      "grade": 6,
+      "difficultyLabel": "advanced intermediate",
+      "rationale": "Grade 6 introduces approximately 12–16 bars, 9/8, 5/8 and 5/4, C-sharp/F minor, triplet rhythms, clef changes and right-pedal use. The repertoire is substantially broader and more technically varied, including Baroque counterpoint, Classical and Romantic works, twentieth-century writing, jazz, dance and world-influenced styles.",
+      "repertoireReference": {
+        "style": [
+          "Baroque contrapuntal or dance movement",
+          "Classical movement or variation",
+          "Romantic character piece",
+          "impressionistic or twentieth-century miniature",
+          "jazz or Broadway idiom",
+          "world and folk-derived dance"
+        ],
+        "texture": [
+          "two-voice counterpoint",
+          "melody with active accompaniment",
+          "arpeggiated textures",
+          "wider bass and treble separation",
+          "layered chordal writing",
+          "occasional inner voice"
+        ],
+        "technique": [
+          "clef awareness",
+          "triplet fluency",
+          "irregular metre",
+          "pedal coordination",
+          "larger hand movements",
+          "voicing within thicker textures",
+          "more complex articulation"
+        ],
+        "range": "Use a wide register with controlled leaps and occasional hand crossing-like register exchange, but keep notation readable and avoid virtuoso density.",
+        "difficultySignal": "Reading now depends on maintaining several musical layers and recognising harmonic or contrapuntal patterns ahead of time."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 12,
+          "max": 16,
+          "target": 14,
+          "rationale": "ABRSM table: approximately 12–16 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8",
+          "6/8",
+          "9/8",
+          "5/8",
+          "5/4"
+        ],
+        "preferredMetres": [
+          "4/4",
+          "6/8",
+          "9/8",
+          "5/8"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor",
+          "E major",
+          "F-sharp major",
+          "C minor",
+          "C-sharp major",
+          "F minor"
+        ],
+        "preferredKeys": [
+          "C-sharp major",
+          "F minor",
+          "E major",
+          "B-flat major",
+          "D major"
+        ],
+        "accidentals": {
+          "maxPerBar": 5,
+          "allowed": "regular altered notes and short tonicisations while preserving a readable tonal or modal centre",
+          "avoid": [
+            "un-signposted key changes every bar",
+            "atonal density"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with independent lines and accompaniment",
+          "simultaneousHandsAllowed": true,
+          "position": "wide mobile positions",
+          "maximumPositionSpanSemitones": 12
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 16,
+          "maximumLeapSemitones": 19,
+          "maximumOverallRegisterSpanSemitones": 72,
+          "octaveDisplacementAllowed": "occasional if clearly notated"
+        },
+        "rhythm": {
+          "subdivision": "semiquavers, triplets, dotted rhythms and irregular metre groupings",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "moderate, usually localised",
+          "triplets": true,
+          "maxConsecutiveNonStepRhythms": 8
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 3,
+          "maxIndependentVoices": 3,
+          "chords": "three-note sonorities are allowed, but avoid sustained dense blocks",
+          "melodyAccompanimentRatio": "melody must remain recoverable inside the texture"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass",
+            "alto",
+            "tenor"
+          ],
+          "clefChanges": "occasional and signposted",
+          "anacrusis": true,
+          "8va": false,
+          "rests": "independent rests and held notes may be used"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f",
+            "ff"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": [
+            "slowing at the end",
+            "brief local flexibility"
+          ],
+          "pedal": [
+            "right pedal, sparingly and at harmonic changes"
+          ],
+          "ornaments": [
+            "simple grace note",
+            "simple turn only if clearly notated"
+          ]
+        },
+        "required": [
+          "one irregular-metre or triplet challenge",
+          "one controlled texture with at least two discernible layers",
+          "at least one pedal or clef-change opportunity in top-end variants"
+        ],
+        "forbidden": [
+          "simultaneous dense four-voice chord blocks",
+          "frequent unprepared clef changes",
+          "ornament-heavy melody",
+          "rapid modulation without cadence clues"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 30,
+        "targetMaxPoints": 46,
+        "maxPoints": 54
+      }
+    },
+    "7": {
+      "grade": 7,
+      "difficultyLabel": "advanced",
+      "rationale": "Grade 7 extends the sight-reading length to approximately 16–20 bars and adds 7/8, 7/4, tempo changes, 8va and una corda pedal. The repertoire supports substantial contrapuntal, Romantic, impressionistic, modern, jazz and character-piece writing with more independent layers and wider register use.",
+      "repertoireReference": {
+        "style": [
+          "advanced Baroque or contrapuntal movement",
+          "Romantic character piece",
+          "impressionistic miniature",
+          "modernist or twentieth-century character piece",
+          "jazz or dance idiom",
+          "large-scale lyrical or dramatic miniature"
+        ],
+        "texture": [
+          "three-voice independence",
+          "melody embedded in chordal writing",
+          "wide arpeggiation",
+          "inner-voice movement",
+          "register exchanges",
+          "contrasting accompaniment patterns"
+        ],
+        "technique": [
+          "irregular metres",
+          "tempo transitions",
+          "8va reading",
+          "una corda and right-pedal awareness",
+          "larger leaps",
+          "more demanding voicing",
+          "simple ornament integration"
+        ],
+        "range": "Use a broad grand-staff register and purposeful register changes. Wide leaps are acceptable when supported by pattern, harmony or repeated shape.",
+        "difficultySignal": "The player must maintain musical direction through longer phrases while decoding several concurrent structures."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 16,
+          "max": 20,
+          "target": 18,
+          "rationale": "ABRSM table: approximately 16–20 bars."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8",
+          "6/8",
+          "9/8",
+          "5/8",
+          "5/4",
+          "7/8",
+          "7/4"
+        ],
+        "preferredMetres": [
+          "4/4",
+          "6/8",
+          "7/8",
+          "7/4"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor",
+          "E major",
+          "F-sharp major",
+          "C minor",
+          "C-sharp major",
+          "F minor"
+        ],
+        "preferredKeys": [
+          "C-sharp major",
+          "F minor",
+          "B minor",
+          "E-flat major",
+          "A major"
+        ],
+        "accidentals": {
+          "maxPerBar": 6,
+          "allowed": "chromatic harmony, modal mixture and short tonicisations when phrase direction remains clear",
+          "avoid": [
+            "arbitrary accidentals with no harmonic purpose"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with independent voices and register changes",
+          "simultaneousHandsAllowed": true,
+          "position": "wide and shifting",
+          "maximumPositionSpanSemitones": 12
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 19,
+          "maximumLeapSemitones": 24,
+          "maximumOverallRegisterSpanSemitones": 84,
+          "octaveDisplacementAllowed": "regular but not continuous"
+        },
+        "rhythm": {
+          "subdivision": "semiquavers, triplets, syncopation and irregular groupings",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "moderate and may cross the bar line",
+          "triplets": true,
+          "maxConsecutiveNonStepRhythms": 10
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 3,
+          "maxIndependentVoices": 3,
+          "chords": "three-note chords in either hand, with occasional spread or arpeggiated sonorities",
+          "melodyAccompanimentRatio": "the primary voice must be inferable but may move between hands"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass",
+            "alto",
+            "tenor"
+          ],
+          "clefChanges": "occasional, including mid-phrase when signposted",
+          "anacrusis": true,
+          "8va": "allowed",
+          "rests": "independent voices may enter after rests"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f",
+            "ff"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto",
+            "marcato used sparingly"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": [
+            "ritardando",
+            "rallentando",
+            "a tempo",
+            "brief acceleration"
+          ],
+          "pedal": [
+            "right pedal",
+            "occasional una corda"
+          ],
+          "ornaments": [
+            "simple grace note",
+            "turn",
+            "mordent or trill only in a brief, obvious context"
+          ]
+        },
+        "required": [
+          "one tempo or metre-management challenge",
+          "one passage with independent inner or bass activity",
+          "a register or 8va change in upper-grade variants"
+        ],
+        "forbidden": [
+          "simultaneous four-voice density sustained for many bars",
+          "unmarked hand crossings",
+          "ornament clusters",
+          "frequent unexplained clef changes"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 40,
+        "targetMaxPoints": 59,
+        "maxPoints": 68
+      }
+    },
+    "8": {
+      "grade": 8,
+      "difficultyLabel": "advanced / pre-professional",
+      "rationale": "Grade 8 reaches approximately one page and adds 12/8, B/D minor, three-part chords in either hand, spread chords, simple ornaments and acceleration. The repertoire spans mature Baroque, Classical, Romantic, impressionistic, modern, jazz and world-influenced writing and expects confident voicing, register control, pedal judgement and stylistic fluency.",
+      "repertoireReference": {
+        "style": [
+          "mature Baroque dance, prelude or contrapuntal movement",
+          "Classical sonata, rondo or variation",
+          "Romantic character piece",
+          "impressionistic prelude or colouristic miniature",
+          "twentieth-century or contemporary work",
+          "jazz, folk or world-influenced concert miniature"
+        ],
+        "texture": [
+          "three-voice counterpoint",
+          "dense but prioritised chordal writing",
+          "melody inside accompaniment",
+          "wide arpeggiation and spread chords",
+          "independent bass, inner and soprano lines",
+          "register-wide climaxes"
+        ],
+        "technique": [
+          "ornament recognition",
+          "spread-chord reading",
+          "complex voicing",
+          "compound metre",
+          "tempo acceleration",
+          "pedal and una corda decisions",
+          "large but idiomatic leaps",
+          "stylistic articulation"
+        ],
+        "range": "Allow a full, wide grand-staff register and purposeful octave displacement. Avoid requiring virtuoso velocity or extreme stretches merely to make the exercise difficult.",
+        "difficultySignal": "The exercise should resemble a compact mature piano texture while remaining sight-readable after a 30-second scan. Musical hierarchy and pattern recognition are more important than maximum note density."
+      },
+      "sightReadingRules": {
+        "lengthBars": {
+          "min": 20,
+          "max": 32,
+          "target": 24,
+          "rationale": "ABRSM table: approximately one page; the bar range is an implementation approximation for a normal piano layout and should be adjusted to engraving density."
+        },
+        "metres": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "3/8",
+          "6/8",
+          "9/8",
+          "5/8",
+          "5/4",
+          "7/8",
+          "7/4",
+          "12/8"
+        ],
+        "preferredMetres": [
+          "4/4",
+          "6/8",
+          "9/8",
+          "12/8",
+          "7/8"
+        ],
+        "keys": [
+          "C major",
+          "G major",
+          "F major",
+          "A minor",
+          "D major",
+          "E minor",
+          "G minor",
+          "A major",
+          "B-flat major",
+          "E-flat major",
+          "B minor",
+          "E major",
+          "F-sharp major",
+          "C minor",
+          "C-sharp major",
+          "F minor",
+          "B major",
+          "D minor"
+        ],
+        "preferredKeys": [
+          "B major",
+          "D minor",
+          "C-sharp major",
+          "F minor",
+          "E-flat major",
+          "B minor"
+        ],
+        "accidentals": {
+          "maxPerBar": 8,
+          "allowed": "chromatic harmony, modal mixture, tonicisation and brief modulation provided cadential or pattern clues remain visible",
+          "avoid": [
+            "unstructured atonality",
+            "accidentals that cannot be grouped into a readable pattern"
+          ]
+        },
+        "hands": {
+          "mode": "hands together with independent voices, wide register and occasional register exchange",
+          "simultaneousHandsAllowed": true,
+          "position": "fully mobile",
+          "maximumPositionSpanSemitones": 12
+        },
+        "pitchAndMovement": {
+          "maximumMelodicIntervalSemitones": 24,
+          "maximumLeapSemitones": 31,
+          "maximumOverallRegisterSpanSemitones": 96,
+          "octaveDisplacementAllowed": "regular when clearly notated"
+        },
+        "rhythm": {
+          "subdivision": "semiquavers, triplets, compound metre, syncopation and mixed rhythmic layers",
+          "maxSubdivision": "semiquaver",
+          "ties": true,
+          "syncopation": "moderate to advanced, with phrase-level control",
+          "triplets": true,
+          "maxConsecutiveNonStepRhythms": 12
+        },
+        "texture": {
+          "maxSimultaneousNotesPerHand": 3,
+          "maxIndependentVoices": 4,
+          "chords": "three-part chords in either hand, including occasional spread chords",
+          "melodyAccompanimentRatio": "the principal voice may be embedded, transferred or shared between hands but must be musically recoverable"
+        },
+        "notation": {
+          "clefs": [
+            "treble",
+            "bass",
+            "alto",
+            "tenor"
+          ],
+          "clefChanges": "allowed when idiomatic and signposted",
+          "anacrusis": true,
+          "8va": "allowed",
+          "rests": "independent entries, held voices and syncopated rests may occur"
+        },
+        "expression": {
+          "dynamics": [
+            "pp",
+            "p",
+            "mp",
+            "mf",
+            "f",
+            "ff"
+          ],
+          "articulations": [
+            "legato",
+            "staccato",
+            "slurs",
+            "accents",
+            "tenuto",
+            "marcato"
+          ],
+          "hairpins": [
+            "crescendo",
+            "diminuendo"
+          ],
+          "tempoChanges": [
+            "ritardando",
+            "rallentando",
+            "a tempo",
+            "acceleration"
+          ],
+          "pedal": [
+            "right pedal",
+            "occasional una corda"
+          ],
+          "ornaments": [
+            "simple grace note",
+            "turn",
+            "mordent",
+            "short trill when the rhythmic context is unambiguous"
+          ]
+        },
+        "required": [
+          "at least two layers must be independently meaningful",
+          "one compound-metre, tempo or rhythmic-layer challenge",
+          "one upper-grade texture feature such as a spread chord, simple ornament, 8va or embedded melody"
+        ],
+        "forbidden": [
+          "unplayable hand stretches",
+          "unmarked hand crossings",
+          "ornament-heavy notation that cannot be scanned in 30 seconds",
+          "virtuoso-speed passagework as the sole difficulty source"
+        ]
+      },
+      "generationBudget": {
+        "targetMinPoints": 50,
+        "targetMaxPoints": 75,
+        "maxPoints": 86
+      }
+    }
+  },
+  "implementationNotes": {
+    "recommendedGenerationOrder": [
+      "select grade",
+      "select style profile",
+      "select key and metre",
+      "generate phrase skeleton",
+      "generate texture and accompaniment",
+      "add grade-appropriate rhythmic features",
+      "add limited expression and notation features",
+      "validate all hard limits",
+      "render and play back",
+      "reject if density or difficulty budget is exceeded"
+    ],
+    "validationPriority": [
+      "playability",
+      "hard sight-reading limits",
+      "tonal and rhythmic coherence",
+      "difficulty budget",
+      "stylistic variety",
+      "engraving clarity"
+    ],
+    "varietyRules": [
+      "do not repeat the same key more than twice in a row",
+      "rotate style families within a grade",
+      "do not use every optional feature in one exercise",
+      "occasionally generate an easier exercise inside the grade band",
+      "use top-end difficulty only after validating the core grade pattern"
+    ],
+    "sourceMaintenance": "Re-check the official ABRSM syllabus when the 2027 Piano Practical Grades syllabus takes effect; update the source metadata and any changed sight-reading parameters before presenting the rules as current."
+  }
+}
